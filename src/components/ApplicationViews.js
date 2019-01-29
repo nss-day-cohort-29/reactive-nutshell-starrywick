@@ -41,7 +41,7 @@ export default class ApplicationViews extends Component {
             // Remove null and return the component which will show the user's tasks
           }}
         />
-        
+
       </React.Fragment>
     );
   }
