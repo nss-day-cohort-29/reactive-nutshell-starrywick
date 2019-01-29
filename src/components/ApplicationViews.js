@@ -2,7 +2,7 @@ import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
 import EventList from "./event/EventList";
 import EventManager from "../modules/EventManager";
-import EventForm from "./student/EventForm";
+import EventForm from "./event/EventForm";
 
 export default class ApplicationViews extends Component {
 
@@ -69,7 +69,7 @@ export default class ApplicationViews extends Component {
 
         <Route
           path="/events/:eventId(\d+)/edit" render={props => {
-            return <EditForm {...props} updateEvent={this.updateEvent}/>
+            return <EventForm {...props} updateEvent={this.updateEvent}/>
           }}
         />
         
