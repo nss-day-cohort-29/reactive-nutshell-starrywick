@@ -1,7 +1,19 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
+import TasksManager from '../modules/TasksManager';
+import TaskList from './task/TaskList';
+import TaskForm from './task/TaskForm';
+
 
 export default class ApplicationViews extends Component {
+
+  componentDidMount() {
+    TasksManager.getAll().then(allTasks => {
+      this.setState({
+        tasks: allTasks
+      });
+    });
+  }
 
   render() {
     return (
@@ -43,6 +55,6 @@ export default class ApplicationViews extends Component {
         />
 
       </React.Fragment>
-    );
+    )
   }
 }
