@@ -1,7 +1,32 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
+import EventManager from "../modules/EventManager"
+import EventForm from "./student/EventForm"
 
 export default class ApplicationViews extends Component {
+
+  state = {
+    events: []
+  };
+
+  componentDidMount() {
+    EventManager.getAll()
+    .then(events => {
+      this.setState({
+        events: events
+      });
+    });
+  }
+
+  updateEvent = (eventId, editedEventObj) => {
+    return EventManager.put(eventId, editedEventObj)
+    .then(() => EventManager.getAll())
+    .then(eventss => {
+      this.setState({
+        events: events
+      })
+    });
+  }
 
   render() {
     return (
@@ -36,9 +61,14 @@ export default class ApplicationViews extends Component {
         />
 
         <Route
-          path="/events" render={props => {
-            return null
-            // Remove null and return the component which will show the user's tasks
+          exact path="/events" render={props => {
+            return <EventList events={this.state.events} />
+          }}
+        />
+
+        <Route
+          path="/events/:eventId(\d+)/edit" render={props => {
+            return <EditForm {...props} updateEvent={this.updateEvent}/>
           }}
         />
         
