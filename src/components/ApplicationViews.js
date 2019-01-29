@@ -1,7 +1,8 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
-import EventManager from "../modules/EventManager"
-import EventForm from "./student/EventForm"
+import EventList from "./event/EventList";
+import EventManager from "../modules/EventManager";
+import EventForm from "./student/EventForm";
 
 export default class ApplicationViews extends Component {
 
@@ -21,7 +22,7 @@ export default class ApplicationViews extends Component {
   updateEvent = (eventId, editedEventObj) => {
     return EventManager.put(eventId, editedEventObj)
     .then(() => EventManager.getAll())
-    .then(eventss => {
+    .then(events => {
       this.setState({
         events: events
       })
