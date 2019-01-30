@@ -71,7 +71,7 @@ export default class EventForm extends Component {
                           value={this.state.location} />
                     </div>
                     
-                    <button type="submit" onClick={this.updateExistingEvent} className="btn btn-primary">Submit</button>
+                    <button type="submit" onClick={this.updateExistingEvent} className="btn btn-primary">SUBMIT</button>
                 </form>
             </React.Fragment>
         )
