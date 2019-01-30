@@ -47,8 +47,8 @@ export default class ApplicationViews extends Component {
         })
       );
 
-  deleteTask = taskId => {
-    return fetch(`http://localhost:5002/tasks/${taskId}`, {
+  deleteTask = id => {
+    return fetch(`http://localhost:5002/tasks/${id}`, {
       method: "DELETE"
     })
     .then(e => e.json())
@@ -170,7 +170,7 @@ export default class ApplicationViews extends Component {
               return (
                 <TaskForm
                   {...props}
-                  addArticle={this.addArticle}
+                  addTask={this.addTask}
                 />
               );
             }}

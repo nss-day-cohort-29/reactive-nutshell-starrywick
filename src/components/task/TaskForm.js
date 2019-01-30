@@ -9,6 +9,7 @@ import React, { Component } from "react";
 //       "dueDate": "2019-01-28",
 //       "complete": false
 //     }
+//    ]
 
 export default class TaskForm extends Component {
   state = {

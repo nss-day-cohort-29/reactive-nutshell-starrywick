@@ -12,12 +12,12 @@ export default class TaskCard extends Component {
             {this.props.task.name}
             <a
              href="/tasks/id"
-             onClick={() => this.props.deleteTask(this.props.task.id)}
+             onClick={() => this.props.deleteTask(this.props.tasks.id)}
              className="card-link"
             >Delete</a>
             <a
              href="/tasks/id"
-             onClick={() => this.props.editTask(this.props.task.id)}
+             onClick={() => this.props.putTask(this.props.tasks.id)}
              className="card-link"
             >Edit</a>
           </h3>

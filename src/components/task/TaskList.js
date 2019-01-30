@@ -7,22 +7,23 @@ export default class TaskList extends Component {
   render () {
     return (
       <React.Fragment>
-        <div className="taskButton">;
-          <button type="button" className="btn btn-success"
-            onClick={() => {
-              this.props.history.push("/tasks/new")
-            }}
-          >Add Task</button>;
-          <button type="button" className="btn btn-success"
-            onClick={() => {
-              this.props.history.push("/tasks/new")
-            }}
-          >Edit Task</button>;
-        </div>;
         <section className="tasks">
-          {this.props.tasks.map(task => (
+          <div className="taskButton">
+            <button
+            type="button"
+            className="btn btn-success"
+            onClick={() => {
+                this.props.history.push("/tasks/new")
+              }}
+            >Add Task</button>
+            <hr />
+            <h1 className="header">Tasks:</h1>
+
+            {this.props.tasks.map(task => (
+
             <TaskCard key={task.id} task={task} {...this.props} />
-          ))};
+            ))}
+          </div>
         </section>
       </React.Fragment>
     );
