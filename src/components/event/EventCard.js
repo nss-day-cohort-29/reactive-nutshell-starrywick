@@ -8,7 +8,7 @@ export default class EventCard extends Component {
       <div key={this.props.event.id} className="card">
         <div className="card-body">
           <a
-             href="/events/id"
+             href={`/events/${this.props.event.id}/edit`}
              onClick={() => this.props.updateEvent(this.props.event.id)}
              className="card-link"
             >Edit</a>

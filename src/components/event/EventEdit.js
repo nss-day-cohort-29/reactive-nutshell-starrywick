@@ -34,8 +34,8 @@ export default class EventEdit extends Component {
       console.log("updateExistingEvent from EventEdit", existingEvent);
       this.props.updateEvent(this.props.match.params.eventId, existingEvent)
       .then(() => this.props.history
-      // .push("/events/:eventId(\d+)/edit"))
-      .push("/events/edit"))   
+      .push("/events"))
+       
     }
 
     componentDidMount() {
