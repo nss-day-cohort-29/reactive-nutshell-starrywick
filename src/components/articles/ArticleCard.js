@@ -12,9 +12,14 @@ export default class ArticleCard extends Component {
                         {this.props.articles.title}
                         {this.props.articles.synopsis}
                         <Link className="nav-link" to={`/articles/${this.props.articles.id}`}>Details</Link>
-                        <a href="#"
+                        {/* <a href="#"
                             onClick={() => this.props.deleteArticle(this.props.articles.id)}
-                            className="card-link">Remove Article</a>
+                            className="card-link">Remove Article</a> */}
+                            <a
+             href="/articles/id"
+             onClick={() => this.props.deleteArticle(this.props.article.id)}
+             className="card-link"
+            >Delete</a>
                     </h5>
                 </div>
             </div>
