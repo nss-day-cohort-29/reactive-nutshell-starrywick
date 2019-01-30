@@ -10,22 +10,22 @@ export default {
   },
 
   post(newEvent) {
-    return fetch(`${remoteURL}/events}`, {
+    return fetch(`${remoteURL}/events`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(newEvent)
-      }).then(data => data.json());
-     },
+    }).then(data => data.json());
+   },  
 
-  put(eventId, existingevent) {
+  put(eventId, existingEvent) {
     return fetch(`${remoteURL}/events/${eventId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(existingevent)
+      body: JSON.stringify(existingEvent)
       }).then(data => data.json());
-    }
+  }
 }

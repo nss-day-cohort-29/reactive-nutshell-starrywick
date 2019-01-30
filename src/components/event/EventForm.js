@@ -19,9 +19,22 @@ export default class EventForm extends Component {
         this.setState(stateToChange)
     }
 
+    constructNewEvent = evt => {
+      evt.preventDefault();
+        const event = {
+          userId: 2,
+          eventDate: this.state.eventDate,
+          name: this.state.name,
+          location: this.state.location          
+        };  
+        // Create the event and redirect user to event list
+        this.props
+          .addEvent(event)
+          .then(() => this.props.history.push("/events"));
+    };
+
     updateExistingEvent = evt => {
       evt.preventDefault()
-
       const existingEvent = {
         eventDate: this.state.eventDate,
         name: this.state.name,
@@ -29,9 +42,9 @@ export default class EventForm extends Component {
       }
       console.log("This is existingEvent from EventForm");
       console.log("existingEvent", existingEvent);
-    this.props.updateEvent(this.props.match.params.eventId, existingEvent)
-    .then(() => 
-    this.props.history.push("/events"))      
+      this.props.updateEvent(this.props.match.params.eventId, existingEvent)
+      .then(() => 
+      this.props.history.push("/events"))      
     }
 
     componentDidMount() {
@@ -75,9 +88,11 @@ export default class EventForm extends Component {
                           value={this.state.location} />
                     </div>
                     
-                    <button type="submit" onClick={this.updateExistingEvent} className="btn btn-primary">SUBMIT</button>
+                    <button type="submit" 
+                    onClick={this.constructNewEvent} 
+                    className="btn btn-primary">SUBMIT</button>
                 </form>
             </React.Fragment>
-        )
+        );
     }
 }
