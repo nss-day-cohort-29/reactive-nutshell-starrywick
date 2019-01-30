@@ -5,24 +5,19 @@
  
   .card-body {
     display: flex;
-    justify-content: space-between;
     flex-direction: row;
   } 
 
   .card {
-    font-size: 1rem;
     width: 50rem;
   }
   
   .card-title {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: row;
   }
   
   .card-link {
-    margin: 12px 0 0 0;
+    margin: 5px 0 0 0;
     font-size: 0.7em;
   }
   

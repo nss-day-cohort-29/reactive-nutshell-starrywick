@@ -1,9 +1,10 @@
 import React, { Component } from "react"
-import EventManager from "../../modules/EventManager"
+import "./Event.css";
 
 export default class EventForm extends Component {
     // Set initial state
     state = {
+      userId: "",
       eventDate: "",
       name: "",
       location: ""
@@ -36,6 +37,7 @@ export default class EventForm extends Component {
     updateExistingEvent = evt => {
       evt.preventDefault()
       const existingEvent = {
+        userId: this.state.userId,
         eventDate: this.state.eventDate,
         name: this.state.name,
         location: this.state.location
@@ -51,6 +53,7 @@ export default class EventForm extends Component {
       EventManager.get(this.props.match.params.eventId)
       .then(event => {
         this.setState({
+          userId: event.userId,
           eventDate: event.eventDate,
           name: event.name,
           location: event.location

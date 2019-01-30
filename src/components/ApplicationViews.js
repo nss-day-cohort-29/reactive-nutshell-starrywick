@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import EventList from "./event/EventList";
 import EventManager from "../modules/EventManager";
 import EventForm from "./event/EventForm";
-import EventCard from "./event/EventCard";
+// import EventEdit from "./event/EventEdit";
 import ArticleList from "./articles/ArticleList";
 import ArticleCard from "./articles/ArticleCard";
 import ArticleForm from "./articles/ArticleForm";
