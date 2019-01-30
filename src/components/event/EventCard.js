@@ -7,9 +7,9 @@ export default class EventCard extends Component {
     return (
       <div key={this.props.event.id} className="card">
         <div className="card-body">
-          <h5 className="card-title">{this.props.event.eventDate}</h5>
-          <h5 className="card-title">{this.props.event.name}</h5>
-          <h5 className="card-title">{this.props.event.location}</h5>
+          <h3 className="card-title">{this.props.event.eventDate}</h3>
+          <h3 className="card-title">{this.props.event.name}</h3>
+          <h3 className="card-title">{this.props.event.location}</h3>
             
           {/* <a
             href="#"

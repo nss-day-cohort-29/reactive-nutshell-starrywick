@@ -14,6 +14,8 @@ export default class EventForm extends Component {
         const stateToChange = {}
 /* evt.target.id functions like an index number in the array. The target depends on the field with event listener*/
         stateToChange[evt.target.id] = evt.target.value
+        console.log("This is stateToChange from EventForm");
+        console.log("StateToChange", stateToChange);
         this.setState(stateToChange)
     }
 
@@ -25,6 +27,8 @@ export default class EventForm extends Component {
         name: this.state.name,
         location: this.state.location
       }
+      console.log("This is existingEvent from EventForm");
+      console.log("existingEvent", existingEvent);
     this.props.updateEvent(this.props.match.params.eventId, existingEvent)
     .then(() => 
     this.props.history.push("/events"))      
@@ -47,15 +51,15 @@ export default class EventForm extends Component {
             <React.Fragment>
                 <form className="eventForm">
                     <div className="form-group">
-                        <label htmlFor="eventDate">Date</label>
-                        <input type="text" required
+                        <label htmlFor="eventDate">Date:</label>
+                        <input type="date" required
                           className="form-control"
                           onChange={this.handleFieldChange}
                           id="eventDate" 
                           value = {this.state.eventDate} />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="name">Event Name</label>
+                        <label htmlFor="name">Event:</label>
                         <input type="text" required
                           className="form-control"
                           onChange={this.handleFieldChange}
@@ -63,7 +67,7 @@ export default class EventForm extends Component {
                           value={this.state.name} />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="location">Location</label>
+                        <label htmlFor="location">Location:</label>
                         <input type="text" required
                           className="form-control"
                           onChange={this.handleFieldChange}

@@ -14,11 +14,9 @@ export default class EventList extends Component {
             onClick={() => {
               this.props.history.push("/events/new");
             }}
-          >
-            ADD EVENT
-          </button>
-        </div>
-        <section className="events">
+          >ADD EVENT</button>
+          </div>
+          <section className="events">
           {this.props.events.map(event => (
             <EventCard key={event.id} event={event} {...this.props} />
           ))}

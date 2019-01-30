@@ -79,11 +79,14 @@ export default class ApplicationViews extends Component {
     //     tasks: tasks
     //   });
     // });
+
     /*Need to filter for only user and his/her friends */
     EventManager.getAll()
-    .then(events => {
+    .then(allEvents => {
+      console.log("This is return from fetch all of EventManager.getAll")
+      console.log("events", allEvents);
       this.setState({
-        events: events
+        events: allEvents
       });
     });
   }
@@ -164,17 +167,17 @@ export default class ApplicationViews extends Component {
 {/* ********** EVENTS ********** */}
            {/* this is for the events add form - I am assigning the url /events/new and passing the prop addEvent and ... all other props associated with ApplicationView */}
 {/*EventForm ADD*/}
-           <Route
-            path="/events/new"
-            render={props => {
-              return (
-                <EventForm
-                  {...props}
-                  addEvent={this.addEvent}
-                />
-              );
-            }}
-          />
+          <Route
+          path="/events/new"
+          render={props => {
+            return (
+              <EventForm
+                {...props}
+                addEvent={this.addEvent}
+              />
+            );
+          }}
+        />
 {/*EventList*/}
           <Route
             exact path="/events" 
@@ -188,7 +191,10 @@ export default class ApplicationViews extends Component {
 {/*EventForm EDIT*/}
           <Route
             path="/events/:eventId(\d+)/edit" render={props => {
-              return <EventForm {...props} updateEvent={this.updateEvent}/>
+              return (
+              <EventForm {...props} 
+              updateEvent={this.updateEvent}/>
+              );
             }}
           />  
         

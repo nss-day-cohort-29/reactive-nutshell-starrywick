@@ -2,16 +2,23 @@
     display: flex;
     justify-content: space-evenly;
   }
-  
+ 
+  .card-body {
+  display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+  } 
+
   .card {
-    width: 10rem;
+    width: 70rem;
   }
   
   .card-title {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
   }
   
   .card-link {
