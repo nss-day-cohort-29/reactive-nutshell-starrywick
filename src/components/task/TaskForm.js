@@ -25,17 +25,35 @@ export default class TaskForm extends Component {
   };
 
   // Validation, create task object, invoking fn reference from parent component
-  constructNewTask evt => {
+  constructNewTask = evt => {
     evt.preventDefault();
     if (this.state.taskName === "") {
       alert("Please include a task name.")
     }
     if (this.state.dueDate === "") {
       alert("Please select an expected completion date.")
-  } else{
-    const task = {
-      name: this.state.taskName,
-      dueDate: this.state.dueDate
+    } else{
+      const task = {
+        name: this.state.taskName,
+        dueDate: this.state.dueDate,
+        id: this.state.id,
+        userId: this.props.history.find(
+          user => user.id === this.state.user).id
+      }
+      // Create the task and redirect the user to the Task List.
+      this.props.addTask(task)
+        .then(() => this.props.history.push("./tasks"));
     }
+  };
+  render() {
+    return (
+      <React.Fragment>
+        <form className="taskForm">
+          <div className="form-group">
+          </div>
+        </form>
+      </React.Fragment>
+    )
   }
 }
+
