@@ -6,7 +6,9 @@ import './Article.css'
 export default class ArticleList extends Component {
 
     render() {
-
+        
+        this.props.articles.sort(function(a,b){return new Date(a.timeStamp) - new Date(b.timeStamp)}).reverse();
+ 
         return (
             <React.Fragment>
                 <div className="articleButton">
@@ -15,7 +17,7 @@ export default class ArticleList extends Component {
                         onClick={() => {
                             this.props.history.push("/articles/new")
                         }
-                        }>
+                    }>
                         Create New Article
                                 </button>
                 </div>
