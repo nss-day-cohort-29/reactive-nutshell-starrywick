@@ -28,15 +28,47 @@ export default class ApplicationViews extends Component {
     return fetch(`http://localhost:5002/articles/${id}`, {
       method: "DELETE"
     })
-      .then(response => response.json())
-      .then(() => fetch(`http://localhost:5002/articles`))
-      .then(response => response.json())
-      .then(articles =>
+    .then(response => response.json())
+    .then(() => fetch(`http://localhost:5002/articles`))
+    .then(response => response.json())
+    .then(articles =>
+      this.setState({
+        articles: articles
+      })
+      );
+    };
+
+  addTask = task =>
+    ArticleManager.post(task)
+      .then(() => TasksManager.getAll())
+      .then(tasks =>
         this.setState({
-          articles: articles
+          tasks: tasks
         })
       );
-  };
+
+  deleteTask = taskId => {
+    return fetch(`http://localhost:5002/tasks/${taskId}`, {
+      method: "DELETE"
+    })
+    .then(e => e.json())
+    .then(() => fetch(`http://localhost:5002/tasks`))
+    .then(e => e.json())
+    .then(tasks => this.state({
+        tasks: tasks
+      })
+    )
+  }
+
+  putTask(taskId, existingTask) {
+    return fetch(`http://localhost:5002/tasks/${taskId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(existingTask)
+    }).then(e => e.json());
+  }
 
   componentDidMount() {
     ArticleManager.getAll().then(allArticles => {
@@ -117,13 +149,31 @@ export default class ApplicationViews extends Component {
             }
           />
 
+          {/* List of tasks */}
           <Route
-            path="/tasks" render={props =>
-              {
-              return null
-              // Remove null and return the component which will show the user's tasks
-              }
-            }
+            exact path="/tasks"
+              render={props => {
+                return (
+                  <TaskList
+                    {...props}
+                    deleteTask={this.deleteTask}
+                    tasks={this.state.tasks}
+                  />
+                );
+              }}
+          />
+
+          {/* Add task form */}
+          <Route
+            path="/tasks/new"
+            render={props => {
+              return (
+                <TaskForm
+                  {...props}
+                  addArticle={this.addArticle}
+                />
+              );
+            }}
           />
 
           <Route
@@ -134,6 +184,6 @@ export default class ApplicationViews extends Component {
               }
             }
           />
-      </React.Fragment>
+        </React.Fragment>
       )}
 }
