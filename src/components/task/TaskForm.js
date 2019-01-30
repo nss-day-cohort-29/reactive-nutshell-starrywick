@@ -9,6 +9,7 @@ import React, { Component } from "react";
 //       "dueDate": "2019-01-28",
 //       "complete": false
 //     }
+
 export default class TaskForm extends Component {
   state = {
     taskName: "",
@@ -50,7 +51,34 @@ export default class TaskForm extends Component {
       <React.Fragment>
         <form className="taskForm">
           <div className="form-group">
+            <label htmlFor="taskName">Task Name</label>
+            <input
+              type="text"
+              id="taskName"
+              className="form-control"
+              placeholder="Enter a task name"
+              onChange={this.handleFieldChange}
+              required
+              autoFocus
+            />
           </div>
+          <div className="form-group">
+            <label htmlFor="taskDueDate">Due Date:</label>
+            <input
+              type="text"
+              id="taskDueDate"
+              className="form-control"
+              placeholder="Pick a completion date"
+              onChange={this.handleFieldChange}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={this.constructNewTask}
+          >
+          </button>
         </form>
       </React.Fragment>
     )
