@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import EventList from "./event/EventList";
 import EventManager from "../modules/EventManager";
 import EventForm from "./event/EventForm";
+import EventCard from "./event/EventCard";
 import ArticleList from "./articles/ArticleList";
 import ArticleCard from "./articles/ArticleCard";
 import ArticleForm from "./articles/ArticleForm";
@@ -16,7 +17,8 @@ export default class ApplicationViews extends Component {
     events: []
   };
 
-  addArticle = article =>
+{/* ********** ARTICLES ********** */}
+   addArticle = article =>
     ArticleManager.post(article)
       .then(() => ArticleManager.getAll())
       .then(articles =>
@@ -39,27 +41,18 @@ export default class ApplicationViews extends Component {
       );
   };
 
-  componentDidMount() {
-    // Example code. Make this fit into how you have written yours.
-    ArticleManager.getAll().then(allArticles => {
-      console.log("articles", allArticles);
-      this.setState({
-        articles: allArticles
-      });
-    });
-    TaskManager.getAll()
-    .then(tasks => {
-      this.setState({
-        tasks: tasks
-      });
-    });
-    EventManager.getAll()
-    .then(events => {
-      this.setState({
-        events: events
-      });
-    });
-  }
+{/* ********** TASKS ********** */}
+
+
+{/* ********** EVENTS ********** */}
+  addEvent = event =>
+    EventManager.post(event)
+      .then(() => EventManager.getAll())
+      .then(events =>
+        this.setState({
+          events: events
+        })
+      );
 
   updateEvent = (eventId, editedEventObj) => {
     return EventManager.put(eventId, editedEventObj)
@@ -71,10 +64,35 @@ export default class ApplicationViews extends Component {
     });
   }
 
+{/* ********** componentDidMount ********** */}
+  componentDidMount() {
+    ArticleManager.getAll().then(allArticles => {
+      console.log("articles", allArticles);
+      this.setState({
+        articles: allArticles
+      });
+    });
+
+    TaskManager.getAll()
+    .then(tasks => {
+      this.setState({
+        tasks: tasks
+      });
+    });
+    /*Need to filter for only user and his/her friends */
+    EventManager.getAll()
+    .then(events => {
+      this.setState({
+        events: events
+      });
+    });
+  }
+
+  
     render() {
       return (
         <React.Fragment>
-
+{/* ********** ARTICLES ********** */}
           {/* this is the list of articles */}
           <Route
             exact
@@ -119,6 +137,7 @@ export default class ApplicationViews extends Component {
             }}
           />
 
+{/* ********** FRIENDS ********** */}
           <Route
             path="/friends" render={props => {
               return null
@@ -126,6 +145,7 @@ export default class ApplicationViews extends Component {
             }}
           />
 
+{/* ********** MESSAGES ********** */}
           <Route
             path="/messages" render={props => {
               return null
@@ -133,6 +153,7 @@ export default class ApplicationViews extends Component {
             }}
           />
 
+{/* ********** TASKS ********** */}
           <Route
             path="/tasks" render={props => {
               return null
@@ -140,9 +161,24 @@ export default class ApplicationViews extends Component {
             }}
           />
 
+{/* ********** EVENTS ********** */}
+           {/* this is for the events add form - I am assigning the url /events/new and passing the prop addEvent and ... all other props associated with ApplicationView */}
+           <Route
+            path="/events/new"
+            render={props => {
+              return (
+                <EventForm
+                  {...props}
+                  addEvent={this.addEvent}
+                />
+              );
+            }}
+          />
+        {/*This renders EventList and passes the prop events*/}
           <Route
             exact path="/events" render={props => {
-              return <EventList events={this.state.events} />
+              return 
+              <EventList events={this.state.events} />
             }}
           />
 

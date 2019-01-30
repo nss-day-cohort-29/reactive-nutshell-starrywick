@@ -11,7 +11,9 @@ export default class EventForm extends Component {
 
 
     handleFieldChange = evt => {
+(/* create the empty object stateToChange */)
         const stateToChange = {}
+{/* evt.target.id functions like an index number in the array*/}
         stateToChange[evt.target.id] = evt.target.value
         this.setState(stateToChange)
     }
@@ -24,9 +26,9 @@ export default class EventForm extends Component {
         name: this.state.name,
         location: this.state.location
       }
-
     this.props.updateEvent(this.props.match.params.eventId, existingEvent)
-    .then(() => this.props.history.push("/events"))      
+    .then(() => 
+    this.props.history.push("/events"))      
     }
 
     componentDidMount() {
