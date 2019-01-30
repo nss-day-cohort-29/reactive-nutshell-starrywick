@@ -18,13 +18,10 @@ export default class EventDetail extends Component {
       <section className="event">
         <div key={event.id} className="card">
           <div className="card-body">
-            <h4 className="card-title">
-              {event.name}
-            </h4>
+            <h4 className="card-title">{event.name}</h4>
             <h6 className="card-title">{event.date}</h6>
             <h6 className="card-title">{event.location}</h6>
-
-            <a
+            {/* <a
               href="#"
               onClick={() =>
                 this.props
@@ -34,7 +31,7 @@ export default class EventDetail extends Component {
               className="card-link"
             >
               Delete
-            </a>
+            </a> */}
           </div>
         </div>
       </section>

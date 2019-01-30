@@ -7,19 +7,17 @@ export default class EventCard extends Component {
     return (
       <div key={this.props.event.id} className="card">
         <div className="card-body">
-          <h5 className="card-title">
-            {this.props.event.eventDate}
-            <Link className="nav-link" to={`/events/${this.props.event.id}`}>
-              Details
-            </Link>
-            <a
-              href="#"
-              onClick={() => this.props.deleteEvent(this.props.event.id)}
-              className="card-link"
-            >
-              Discharge
-            </a>
-          </h5>
+          <h5 className="card-title">{this.props.event.eventDate}</h5>
+          <h5 className="card-title">{this.props.event.name}</h5>
+          <h5 className="card-title">{this.props.event.location}</h5>
+            
+          {/* <a
+            href="#"
+            onClick={() => this.props.updateEvent = (eventId, editedEventObj)}
+            className="card-link"
+          >
+            EDIT
+          </a>           */}
         </div>
       </div>
     );

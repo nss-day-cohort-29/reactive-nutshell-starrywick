@@ -17,7 +17,7 @@ export default class ApplicationViews extends Component {
     events: []
   };
 
-{/* ********** ARTICLES ********** */}
+/* ********** ARTICLES ********** */
    addArticle = article =>
     ArticleManager.post(article)
       .then(() => ArticleManager.getAll())
@@ -41,10 +41,10 @@ export default class ApplicationViews extends Component {
       );
   };
 
-{/* ********** TASKS ********** */}
+/* ********** TASKS ********** */
 
 
-{/* ********** EVENTS ********** */}
+/* ********** EVENTS ********** */
   addEvent = event =>
     EventManager.post(event)
       .then(() => EventManager.getAll())
@@ -64,7 +64,7 @@ export default class ApplicationViews extends Component {
     });
   }
 
-{/* ********** componentDidMount ********** */}
+/* ********** componentDidMount ********** */
   componentDidMount() {
     ArticleManager.getAll().then(allArticles => {
       console.log("articles", allArticles);
@@ -73,12 +73,12 @@ export default class ApplicationViews extends Component {
       });
     });
 
-    TaskManager.getAll()
-    .then(tasks => {
-      this.setState({
-        tasks: tasks
-      });
-    });
+    // TaskManager.getAll()
+    // .then(tasks => {
+    //   this.setState({
+    //     tasks: tasks
+    //   });
+    // });
     /*Need to filter for only user and his/her friends */
     EventManager.getAll()
     .then(events => {
@@ -163,6 +163,7 @@ export default class ApplicationViews extends Component {
 
 {/* ********** EVENTS ********** */}
            {/* this is for the events add form - I am assigning the url /events/new and passing the prop addEvent and ... all other props associated with ApplicationView */}
+{/*EventForm ADD*/}
            <Route
             path="/events/new"
             render={props => {
@@ -174,14 +175,17 @@ export default class ApplicationViews extends Component {
               );
             }}
           />
-        {/*This renders EventList and passes the prop events*/}
+{/*EventList*/}
           <Route
-            exact path="/events" render={props => {
-              return 
-              <EventList events={this.state.events} />
+            exact path="/events" 
+            render={props => {
+              return (
+              <EventList {...props} 
+               events={this.state.events} />
+              );
             }}
           />
-
+{/*EventForm EDIT*/}
           <Route
             path="/events/:eventId(\d+)/edit" render={props => {
               return <EventForm {...props} updateEvent={this.updateEvent}/>

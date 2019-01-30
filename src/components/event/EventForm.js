@@ -9,11 +9,10 @@ export default class EventForm extends Component {
       location: ""
     }
 
-
     handleFieldChange = evt => {
-(/* create the empty object stateToChange */)
+/* create the empty object stateToChange */
         const stateToChange = {}
-{/* evt.target.id functions like an index number in the array*/}
+/* evt.target.id functions like an index number in the array. The target depends on the field with event listener*/
         stateToChange[evt.target.id] = evt.target.value
         this.setState(stateToChange)
     }
