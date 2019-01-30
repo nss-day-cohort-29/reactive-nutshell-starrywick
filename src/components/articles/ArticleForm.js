@@ -64,16 +64,11 @@ export default class ArticleForm extends Component {
                             </div>
                     <section>
                             <h5 htmlFor="url">URL:</h5>
-                            <input type="url" required={true}
+                            <input type="url" name="url" required={true}
+                            placeholder="https://example.com" pattern="https://.*"
                                 className="form-control"
                                 onChange={this.handleFieldChange}
                                 id="url" />
-                            {/* <h5 htmlFor="url">URL:</h5> */}
-                            {/* <input type="text" required={true}
-                                className="form-control"
-                                onChange={this.handleFieldChange}
-                                id="articleURL"
-                                placeholder="Article URL" /> */}
                         </section>
                     </div>
                     <p></p>
