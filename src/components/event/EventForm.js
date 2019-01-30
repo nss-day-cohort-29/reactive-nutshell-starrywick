@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import "./Event.css";
+import EventManager from "../../modules/EventManager";
 
 export default class EventForm extends Component {
     // Set initial state
@@ -49,17 +50,17 @@ export default class EventForm extends Component {
       this.props.history.push("/events"))      
     }
 
-    // componentDidMount() {
-    //   EventManager.get(this.props.match.params.eventId)
-    //   .then(event => {
-    //     this.setState({
-    //       userId: event.userId,
-    //       eventDate: event.eventDate,
-    //       name: event.name,
-    //       location: event.location
-    //     });
-    //   });
-    // }
+    componentDidMount() {
+      EventManager.get(this.props.match.params.eventId)
+      .then(event => {
+        this.setState({
+          userId: event.userId,
+          eventDate: event.eventDate,
+          name: event.name,
+          location: event.location
+        });
+      });
+    }
 
 
     render() {

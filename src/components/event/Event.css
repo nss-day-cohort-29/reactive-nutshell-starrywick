@@ -6,6 +6,7 @@
   .card-body {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
   } 
 
   .card {
@@ -13,11 +14,11 @@
   }
   
   .card-title {
-    display: flex;
+    margin-right: 20px;
   }
   
   .card-link {
-    margin: 5px 0 0 0;
+    margin-right: 20px;
     font-size: 0.7em;
   }
   

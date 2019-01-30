@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import EventList from "./event/EventList";
 import EventManager from "../modules/EventManager";
 import EventForm from "./event/EventForm";
-// import EventEdit from "./event/EventEdit";
+import EventEdit from "./event/EventEdit";
 import ArticleList from "./articles/ArticleList";
 import ArticleCard from "./articles/ArticleCard";
 import ArticleForm from "./articles/ArticleForm";
@@ -192,7 +192,7 @@ export default class ApplicationViews extends Component {
           <Route
             path="/events/:eventId(\d+)/edit" render={props => {
               return (
-              <EventForm {...props} 
+              <EventEdit {...props} 
               updateEvent={this.updateEvent}/>
               );
             }}
