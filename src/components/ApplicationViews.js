@@ -9,6 +9,8 @@ import ArticleManager from "../modules/ArticleManager";
 export default class ApplicationViews extends Component {
   state = {
     articles: [],
+    tasks: [],
+    events: []
   };
 
   addArticle = article =>
