@@ -33,6 +33,7 @@ export default class ArticleList extends Component {
                                                     <h4>{articles.title}</h4>
                                                     <p>{articles.synopsis}</p>
                                                     <h6>{articles.url}</h6>
+                                                    <h6>{articles.timeStamp}</h6>
                                                     {/* <Link className="cardnav-link" to={`/articles/${articles.id}`}>Details</Link> */}
                                                 </section>
                                                 <div className="deleteButton">
