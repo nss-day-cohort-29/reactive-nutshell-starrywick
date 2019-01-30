@@ -18,11 +18,12 @@ export default class ArticleForm extends Component {
 
     constructArticle = evt => {
         evt.preventDefault()
+        const ts = new Date().toLocaleString()
         const article = {
             url: this.state.url,
             title: this.state.title,
             synopsis: this.state.synopsis,
-            timeStamp: Date.now()
+            timeStamp: ts
         }
 
         this.props.addArticle(article).then(() => this.props.history.push("/"))

@@ -1,8 +1,15 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
+<<<<<<< HEAD
 import TasksManager from '../modules/TasksManager';
 import TaskList from './task/TaskList';
 import TaskForm from './task/TaskForm';
+=======
+import EventList from "./event/EventList";
+import EventManager from "../modules/EventManager";
+import EventForm from "./event/EventForm";
+import EventEdit from "./event/EventEdit";
+>>>>>>> master
 import ArticleList from "./articles/ArticleList";
 import ArticleCard from "./articles/ArticleCard";
 import ArticleForm from "./articles/ArticleForm";
@@ -15,7 +22,8 @@ export default class ApplicationViews extends Component {
     events: []
   };
 
-  addArticle = article =>
+/* ********** ARTICLES ********** */
+   addArticle = article =>
     ArticleManager.post(article)
       .then(() => ArticleManager.getAll())
       .then(articles =>
@@ -70,6 +78,30 @@ export default class ApplicationViews extends Component {
     }).then(e => e.json());
   }
 
+/* ********** TASKS ********** */
+
+
+/* ********** EVENTS ********** */
+  addEvent = event =>
+    EventManager.post(event)
+      .then(() => EventManager.getAll())
+      .then(events =>
+        this.setState({
+          events: events
+        })
+      );
+
+  updateEvent = (eventId, editedEventObj) => {
+    return EventManager.put(eventId, editedEventObj)
+    .then(() => EventManager.getAll())
+    .then(events => {
+      this.setState({
+        events: events
+      })
+    });
+  }
+
+/* ********** componentDidMount ********** */
   componentDidMount() {
     ArticleManager.getAll().then(allArticles => {
       console.log("articles", allArticles);
@@ -80,13 +112,23 @@ export default class ApplicationViews extends Component {
     TasksManager.getAll().then(allTasks => {
       this.setState({
         tasks: allTasks
+
+    /*Need to filter for only user and his/her friends */
+    EventManager.getAll()
+    .then(allEvents => {
+      console.log("This is return from fetch all of EventManager.getAll")
+      console.log("events", allEvents);
+      this.setState({
+        events: allEvents
       });
     });
   }
+
+  
     render() {
       return (
         <React.Fragment>
-
+{/* ********** ARTICLES ********** */}
           {/* this is the list of articles */}
           <Route
             exact
@@ -131,6 +173,7 @@ export default class ApplicationViews extends Component {
             }}
           />
 
+{/* ********** FRIENDS ********** */}
           <Route
             path="/friends" render={props =>
               {
@@ -140,6 +183,7 @@ export default class ApplicationViews extends Component {
             }
           />
 
+{/* ********** MESSAGES ********** */}
           <Route
             path="/messages" render={props =>
               {
@@ -149,7 +193,11 @@ export default class ApplicationViews extends Component {
             }
           />
 
+<<<<<<< HEAD
           {/* List of tasks */}
+=======
+{/* ********** TASKS ********** */}
+>>>>>>> master
           <Route
             exact path="/tasks"
               render={props => {
@@ -176,7 +224,11 @@ export default class ApplicationViews extends Component {
             }}
           />
 
+{/* ********** EVENTS ********** */}
+           {/* this is for the events add form - I am assigning the url /events/new and passing the prop addEvent and ... all other props associated with ApplicationView */}
+{/*EventForm ADD*/}
           <Route
+<<<<<<< HEAD
             path="/events" render={props =>
               {
               return null
@@ -187,3 +239,39 @@ export default class ApplicationViews extends Component {
         </React.Fragment>
       )}
 }
+=======
+          path="/events/new"
+          render={props => {
+            return (
+              <EventForm
+                {...props}
+                addEvent={this.addEvent}
+              />
+            );
+          }}
+        />
+{/*EventList*/}
+          <Route
+            exact path="/events" 
+            render={props => {
+              return (
+              <EventList {...props} 
+               events={this.state.events} />
+              );
+            }}
+          />
+{/*EventForm EDIT*/}
+          <Route
+            path="/events/:eventId(\d+)/edit" render={props => {
+              return (
+              <EventEdit {...props} 
+              updateEvent={this.updateEvent}/>
+              );
+            }}
+          />  
+        
+      </React.Fragment>
+     );
+    }
+  }
+>>>>>>> master
