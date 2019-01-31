@@ -1,5 +1,8 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
+import TasksManager from '../modules/TasksManager';
+import TaskList from './task/TaskList';
+import TaskForm from './task/TaskForm';
 import EventList from "./event/EventList";
 import EventManager from "../modules/EventManager";
 import EventForm from "./event/EventForm";
@@ -12,7 +15,6 @@ import MessageList from "./message/MessageList";
 import MessageCard from "./message/MessageCard";
 import MessageForm from "./message/MessageForm";
 import MessageManager from "../modules/MessageManager";
-
 
 export default class ApplicationViews extends Component {
   state = {
@@ -36,15 +38,47 @@ export default class ApplicationViews extends Component {
     return fetch(`http://localhost:5002/articles/${id}`, {
       method: "DELETE"
     })
-      .then(response => response.json())
-      .then(() => fetch(`http://localhost:5002/articles`))
-      .then(response => response.json())
-      .then(articles =>
+    .then(response => response.json())
+    .then(() => fetch(`http://localhost:5002/articles`))
+    .then(response => response.json())
+    .then(articles =>
+      this.setState({
+        articles: articles
+      })
+      );
+    };
+
+  addTask = task =>
+    ArticleManager.post(task)
+      .then(() => TasksManager.getAll())
+      .then(tasks =>
         this.setState({
-          articles: articles
+          tasks: tasks
         })
       );
-  };
+
+  deleteTask = id => {
+    return fetch(`http://localhost:5002/tasks/${id}`, {
+      method: "DELETE"
+    })
+    .then(e => e.json())
+    .then(() => fetch(`http://localhost:5002/tasks`))
+    .then(e => e.json())
+    .then(tasks => this.state({
+        tasks: tasks
+      })
+    )
+  }
+
+  putTask(taskId, existingTask) {
+    return fetch(`http://localhost:5002/tasks/${taskId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(existingTask)
+    }).then(e => e.json());
+  }
 
 /* ********** TASKS ********** */
 
@@ -101,13 +135,11 @@ deleteMessage = id => {
         articles: allArticles
       });
     });
-
-    // TaskManager.getAll()
-    // .then(tasks => {
-    //   this.setState({
-    //     tasks: tasks
-    //   });
-    // });
+    TasksManager.getAll().then(allTasks => {
+      this.setState({
+        tasks: allTasks
+      });
+    })
 
     /*Need to filter for only user and his/her friends */
     EventManager.getAll()
@@ -117,6 +149,7 @@ deleteMessage = id => {
       this.setState({
         events: allEvents
       });
+
     });
 
     MessageManager.getAll().then(allMessages => {
@@ -125,13 +158,14 @@ deleteMessage = id => {
         messages: allMessages
       });
     });
+    })
   }
 
   
     render() {
       return (
         <React.Fragment>
-{/* ********** ARTICLES ********** */}
+        {/* ********** ARTICLES ********** */}
           {/* this is the list of articles */}
           <Route
             exact
@@ -145,9 +179,6 @@ deleteMessage = id => {
                   articles={this.state.articles}
                 />
               );
-              // } else {
-              //   return <Redirect to="/login" />;
-              // }
             }}
           />
           {/* this is the detail for individual news */}
@@ -176,13 +207,16 @@ deleteMessage = id => {
             }}
           />
 
-{/* ********** FRIENDS ********** */}
+        {/* ********** FRIENDS ********** */}
           <Route
-            path="/friends" render={props => {
+            path="/friends" render={props =>
+              {
               return null
               // Remove null and return the component which will show list of friends
-            }}
+              }
+            }
           />
+
 
 {/* ********** MESSAGES ********** */}
  {/* this is the list of messages */}
@@ -227,19 +261,48 @@ deleteMessage = id => {
                 />
               );
             }}
+        {/* ********** MESSAGES ********** */}
+          <Route
+            path="/messages" render={props =>
+              {
+              return null
+              // Remove null and return the component which will show the messages
+              }
+            }
           />
 
-{/* ********** TASKS ********** */}
+
+          {/* List of tasks */}
+
           <Route
-            path="/tasks" render={props => {
-              return null
-              // Remove null and return the component which will show the user's tasks
+            exact path="/tasks"
+              render={props => {
+                return (
+                  <TaskList
+                    {...props}
+                    deleteTask={this.deleteTask}
+                    tasks={this.state.tasks}
+                  />
+                );
+              }}
+          />
+
+          {/* Add task form */}
+          <Route
+            path="/tasks/new"
+            render={props => {
+              return (
+                <TaskForm
+                  {...props}
+                  addTask={this.addTask}
+                />
+              );
             }}
           />
 
-{/* ********** EVENTS ********** */}
+        {/* ********** EVENTS ********** */}
            {/* this is for the events add form - I am assigning the url /events/new and passing the prop addEvent and ... all other props associated with ApplicationView */}
-{/*EventForm ADD*/}
+        {/*EventForm ADD*/}
           <Route
           path="/events/new"
           render={props => {
@@ -251,7 +314,7 @@ deleteMessage = id => {
             );
           }}
         />
-{/*EventList*/}
+        {/*EventList*/}
           <Route
             exact path="/events" 
             render={props => {
@@ -261,7 +324,7 @@ deleteMessage = id => {
               );
             }}
           />
-{/*EventForm EDIT*/}
+        {/*EventForm EDIT*/}
           <Route
             path="/events/:eventId(\d+)/edit" render={props => {
               return (
@@ -269,9 +332,7 @@ deleteMessage = id => {
               updateEvent={this.updateEvent}/>
               );
             }}
-          />  
-        
+          />
       </React.Fragment>
-     );
-    }
+     )};
   }
