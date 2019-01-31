@@ -1,15 +1,12 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
-<<<<<<< HEAD
 import TasksManager from '../modules/TasksManager';
 import TaskList from './task/TaskList';
 import TaskForm from './task/TaskForm';
-=======
 import EventList from "./event/EventList";
 import EventManager from "../modules/EventManager";
 import EventForm from "./event/EventForm";
 import EventEdit from "./event/EventEdit";
->>>>>>> master
 import ArticleList from "./articles/ArticleList";
 import ArticleCard from "./articles/ArticleCard";
 import ArticleForm from "./articles/ArticleForm";
@@ -112,6 +109,8 @@ export default class ApplicationViews extends Component {
     TasksManager.getAll().then(allTasks => {
       this.setState({
         tasks: allTasks
+      });
+    })
 
     /*Need to filter for only user and his/her friends */
     EventManager.getAll()
@@ -121,14 +120,14 @@ export default class ApplicationViews extends Component {
       this.setState({
         events: allEvents
       });
-    });
+    })
   }
 
   
     render() {
       return (
         <React.Fragment>
-{/* ********** ARTICLES ********** */}
+        {/* ********** ARTICLES ********** */}
           {/* this is the list of articles */}
           <Route
             exact
@@ -142,9 +141,6 @@ export default class ApplicationViews extends Component {
                   articles={this.state.articles}
                 />
               );
-              // } else {
-              //   return <Redirect to="/login" />;
-              // }
             }}
           />
           {/* this is the detail for individual news */}
@@ -173,7 +169,7 @@ export default class ApplicationViews extends Component {
             }}
           />
 
-{/* ********** FRIENDS ********** */}
+        {/* ********** FRIENDS ********** */}
           <Route
             path="/friends" render={props =>
               {
@@ -183,7 +179,7 @@ export default class ApplicationViews extends Component {
             }
           />
 
-{/* ********** MESSAGES ********** */}
+        {/* ********** MESSAGES ********** */}
           <Route
             path="/messages" render={props =>
               {
@@ -193,11 +189,9 @@ export default class ApplicationViews extends Component {
             }
           />
 
-<<<<<<< HEAD
+
           {/* List of tasks */}
-=======
-{/* ********** TASKS ********** */}
->>>>>>> master
+
           <Route
             exact path="/tasks"
               render={props => {
@@ -224,22 +218,10 @@ export default class ApplicationViews extends Component {
             }}
           />
 
-{/* ********** EVENTS ********** */}
+        {/* ********** EVENTS ********** */}
            {/* this is for the events add form - I am assigning the url /events/new and passing the prop addEvent and ... all other props associated with ApplicationView */}
-{/*EventForm ADD*/}
+        {/*EventForm ADD*/}
           <Route
-<<<<<<< HEAD
-            path="/events" render={props =>
-              {
-              return null
-              // Remove null and return the component which will show the user's tasks
-              }
-            }
-          />
-        </React.Fragment>
-      )}
-}
-=======
           path="/events/new"
           render={props => {
             return (
@@ -250,7 +232,7 @@ export default class ApplicationViews extends Component {
             );
           }}
         />
-{/*EventList*/}
+        {/*EventList*/}
           <Route
             exact path="/events" 
             render={props => {
@@ -260,7 +242,7 @@ export default class ApplicationViews extends Component {
               );
             }}
           />
-{/*EventForm EDIT*/}
+        {/*EventForm EDIT*/}
           <Route
             path="/events/:eventId(\d+)/edit" render={props => {
               return (
@@ -268,10 +250,7 @@ export default class ApplicationViews extends Component {
               updateEvent={this.updateEvent}/>
               );
             }}
-          />  
-        
+          />
       </React.Fragment>
-     );
-    }
+     )};
   }
->>>>>>> master
