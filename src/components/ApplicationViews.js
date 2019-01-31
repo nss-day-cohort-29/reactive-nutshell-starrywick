@@ -8,13 +8,18 @@ import ArticleList from "./articles/ArticleList";
 import ArticleCard from "./articles/ArticleCard";
 import ArticleForm from "./articles/ArticleForm";
 import ArticleManager from "../modules/ArticleManager";
+import MessageList from "./message/MessageList";
+import MessageCard from "./message/MessageCard";
+import MessageForm from "./message/MessageForm";
+import MessageManager from "../modules/MessageManager";
 
 
 export default class ApplicationViews extends Component {
   state = {
     articles: [],
     tasks: [],
-    events: []
+    events: [],
+    messages: []
   };
 
 /* ********** ARTICLES ********** */
@@ -62,7 +67,31 @@ export default class ApplicationViews extends Component {
         events: events
       })
     });
-  }
+  };
+
+  /* ********** MESSAGES ********** */
+  addMessage = message =>
+  MessageManager.post(message)
+    .then(() => MessageManager.getAll())
+    .then(messages =>
+      this.setState({
+        messages: messages
+      })
+    );
+
+deleteMessage = id => {
+  return fetch(`http://localhost:5002/messages/${id}`, {
+    method: "DELETE"
+  })
+    .then(response => response.json())
+    .then(() => fetch(`http://localhost:5002/messages`))
+    .then(response => response.json())
+    .then(messages =>
+      this.setState({
+        messages: messages
+      })
+    );
+};
 
 /* ********** componentDidMount ********** */
   componentDidMount() {
@@ -87,6 +116,13 @@ export default class ApplicationViews extends Component {
       console.log("events", allEvents);
       this.setState({
         events: allEvents
+      });
+    });
+
+    MessageManager.getAll().then(allMessages => {
+      console.log("messages", allMessages);
+      this.setState({
+        messages: allMessages
       });
     });
   }
@@ -149,10 +185,47 @@ export default class ApplicationViews extends Component {
           />
 
 {/* ********** MESSAGES ********** */}
+ {/* this is the list of messages */}
+ <Route
+            exact
+            path="/messages"
+            render={props => {
+              // if (this.isAuthenticated()) {
+              return (
+                <MessageList
+                  {...props}
+                  deleteMessage={this.deleteMessage}
+                  messages={this.state.messages}
+                />
+              );
+              // } else {
+              //   return <Redirect to="/login" />;
+              // }
+            }}
+          />
+          {/* this is the detail for individual message */}
           <Route
-            path="/messages" render={props => {
-              return null
-              // Remove null and return the component which will show the messages
+            path="/messages/:messagesId(\d+)"
+            render={props => {
+              return (
+                <MessageCard
+                  {...props}
+                  deleteMessage={this.deleteMessage}
+                  messages={this.state.messages}
+                />
+              );
+            }}
+          />
+          {/* this is the messages add form */}
+          <Route
+            path="/messages/new"
+            render={props => {
+              return (
+                <MessageForm
+                  {...props}
+                  addMessage={this.addMessage}
+                />
+              );
             }}
           />
 
