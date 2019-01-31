@@ -164,7 +164,6 @@ deleteMessage = id => {
         messages: allMessages
       });
     });
-    })
   }
 
   
@@ -267,6 +266,7 @@ deleteMessage = id => {
                 />
               );
             }}
+            />
         {/* ********** MESSAGES ********** */}
           <Route
             path="/messages" render={props =>
