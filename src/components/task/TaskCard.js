@@ -7,20 +7,25 @@ export default class TaskCard extends Component {
     return (
       <div key={this.props.task.id} className="card">
         <div className="card-body">
-          <h3 className="card-title">
+          <div className="card-title">
             <img src={task_icon} className="icon-task" alt="Clipboard_Image" />
             {this.props.task.name}
-            <a
-             href="/tasks/id"
-             onClick={() => this.props.deleteTask(this.props.tasks.id)}
+            <div className="editButton">
+              <button
+              href={`/tasks/${this.props.task.id}/edit`}
+              onClick={() =>
+              this.props.updateTask(this.props.task.id, this.props.task)}
+              className="card-link"
+              >Edit</button>
+            </div>
+
+            <div className="deleteButton">
+            <button
+             onClick={() => this.props.deleteTask(this.props.task.id)}
              className="card-link"
-            >Delete</a>
-            <a
-             href="/tasks/id"
-             onClick={() => this.props.putTask(this.props.tasks.id)}
-             className="card-link"
-            >Edit</a>
-          </h3>
+            >Delete</button>
+            </div>
+          </div>
         </div>
       </div>
     );

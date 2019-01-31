@@ -14,7 +14,7 @@ export default class EventCard extends Component {
             >Edit</a>
           <h5 className="card-title">{this.props.event.eventDate}</h5>
           <h5 className="card-title">{this.props.event.name}</h5>
-          <h5 className="card-title">{this.props.event.location}</h5>        
+          <h5 className="card-title">{this.props.event.location}</h5>
         </div>
       </div>
     );

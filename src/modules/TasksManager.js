@@ -15,6 +15,15 @@ export default {
       },
       body: JSON.stringify(task)
     }).then(data => data.json())
+  },
+  put(taskId, existingTask) {
+    return fetch(`${remoteURL}/${taskId}/edit`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(existingTask)
+      }).then(data => data.json());
   }
 }
 // I need to better understand the relationship between TasksManager and ApplicationViews.
