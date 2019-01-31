@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import TasksManager from '../modules/TasksManager';
 import TaskList from './task/TaskList';
 import TaskForm from './task/TaskForm';
+import TaskCard from './task/TaskCard';
 import EventList from "./event/EventList";
 import EventManager from "../modules/EventManager";
 import EventForm from "./event/EventForm";
@@ -43,8 +44,10 @@ export default class ApplicationViews extends Component {
       );
     };
 
+  /* ********** TASKS ********** */
+
   addTask = task =>
-    ArticleManager.post(task)
+    TasksManager.post(task)
       .then(() => TasksManager.getAll())
       .then(tasks =>
         this.setState({
@@ -53,30 +56,33 @@ export default class ApplicationViews extends Component {
       );
 
   deleteTask = id => {
+    console.log("id:", id);
+    console.log(`http://localhost:5002/tasks/${id}`);
     return fetch(`http://localhost:5002/tasks/${id}`, {
       method: "DELETE"
     })
     .then(e => e.json())
     .then(() => fetch(`http://localhost:5002/tasks`))
     .then(e => e.json())
-    .then(tasks => this.state({
+    .then(tasks => this.setState({
         tasks: tasks
+
       })
     )
   }
 
-  putTask(taskId, existingTask) {
-    return fetch(`http://localhost:5002/tasks/${taskId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(existingTask)
-    }).then(e => e.json());
+  updateTask = (taskId, editedTaskObj) => {
+    console.log(editedTaskObj)
+    return TasksManager.put(taskId, editedTaskObj)
+    .then(e => e.json())
+    .then(() => TasksManager.getAll())
+    .then(e => e.json())
+    .then(tasks => {
+      this.setState({
+        tasks: tasks
+      })
+    });
   }
-
-/* ********** TASKS ********** */
-
 
 /* ********** EVENTS ********** */
   addEvent = event =>
@@ -214,6 +220,16 @@ export default class ApplicationViews extends Component {
                   {...props}
                   addTask={this.addTask}
                 />
+              );
+            }}
+          />
+
+          {/* Edit form EDIT*/}
+          <Route
+            path="/tasks/:taskId(\d+)/edit" render={props => {
+              return (
+              <TaskForm {...props}
+              updateTask={this.updateTask}/>
               );
             }}
           />

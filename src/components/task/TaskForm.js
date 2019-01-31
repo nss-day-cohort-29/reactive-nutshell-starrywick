@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TaskList from "./TaskCard";
 
 //Data Structure:
 //   "tasks": [
@@ -21,7 +22,7 @@ export default class TaskForm extends Component {
   // Update state when any input value is changed
   handleFieldChange = evt => {
     const stateToChange = {};
-    console.log(evt.target.id, evt.target.value);
+    //console.log(evt.target.id, evt.target.value);
     stateToChange[evt.target.id] = evt.target.value;
     this.setState(stateToChange);
   };
@@ -31,20 +32,14 @@ export default class TaskForm extends Component {
     evt.preventDefault();
     if (this.state.taskName === "") {
       alert("Please include a task name.")
-    }
-    if (this.state.dueDate === "") {
-      alert("Please select an expected completion date.")
     } else{
       const task = {
         name: this.state.taskName,
-        dueDate: this.state.dueDate,
-        id: this.state.id,
-        userId: this.props.history.find(
-          user => user.id === this.state.user).id
+        
+        dueDate: this.state.dueDate
       }
       // Create the task and redirect the user to the Task List.
-      this.props.addTask(task)
-        .then(() => this.props.history.push("./tasks"));
+      this.props.addTask(task).then(() => this.props.history.push("/tasks"));
     }
   };
   render() {
@@ -66,7 +61,7 @@ export default class TaskForm extends Component {
           <div className="form-group">
             <label htmlFor="taskDueDate">Due Date:</label>
             <input
-              type="text"
+              type="date"
               id="taskDueDate"
               className="form-control"
               placeholder="Pick a completion date"
@@ -78,7 +73,7 @@ export default class TaskForm extends Component {
             type="submit"
             className="btn btn-primary"
             onClick={this.constructNewTask}
-          >
+          >Save
           </button>
         </form>
       </React.Fragment>
